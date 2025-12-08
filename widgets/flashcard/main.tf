@@ -98,6 +98,9 @@ resource "aws_lambda_function" "widget" {
   package_type  = "Image"
   image_uri     = "${aws_ecr_repository.widget.repository_url}:latest"
 
+  # Use ARM64 (Graviton2) for better price-performance
+  architectures = ["arm64"]
+
   memory_size = var.memory_size
   timeout     = var.timeout
 
