@@ -53,7 +53,7 @@ record_result() {
 # --- Test 1: Web_App health endpoint ---
 echo "--- Test 1: Web_App health endpoint ---"
 ENDPOINT="/widgets/lineup/api/health"
-HTTP_CODE=$(curl -s -o /tmp/va_health_app.json -w "%{http_code}" --max-time "$TIMEOUT" "${ALB_URL}${ENDPOINT}" 2>/dev/null || echo "000")
+HTTP_CODE=$(curl -k -s -o /tmp/va_health_app.json -w "%{http_code}" --max-time "$TIMEOUT" "${ALB_URL}${ENDPOINT}" 2>/dev/null || echo "000")
 echo "  ${ENDPOINT} -> HTTP ${HTTP_CODE}"
 
 if [ "$HTTP_CODE" = "200" ]; then
@@ -66,7 +66,7 @@ fi
 echo ""
 echo "--- Test 2: Web_Server health endpoint ---"
 ENDPOINT="/widgets/lineup/api/optimizer/health"
-HTTP_CODE=$(curl -s -o /tmp/va_health_server.json -w "%{http_code}" --max-time "$TIMEOUT" "${ALB_URL}${ENDPOINT}" 2>/dev/null || echo "000")
+HTTP_CODE=$(curl -k -s -o /tmp/va_health_server.json -w "%{http_code}" --max-time "$TIMEOUT" "${ALB_URL}${ENDPOINT}" 2>/dev/null || echo "000")
 echo "  ${ENDPOINT} -> HTTP ${HTTP_CODE}"
 
 if [ "$HTTP_CODE" = "200" ]; then
@@ -79,8 +79,8 @@ fi
 echo ""
 echo "--- Test 3: Web_App static files ---"
 ENDPOINT="/widgets/lineup/"
-RESPONSE=$(curl -s --max-time "$TIMEOUT" "${ALB_URL}${ENDPOINT}" 2>/dev/null || echo "")
-HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time "$TIMEOUT" "${ALB_URL}${ENDPOINT}" 2>/dev/null || echo "000")
+RESPONSE=$(curl -k -s --max-time "$TIMEOUT" "${ALB_URL}${ENDPOINT}" 2>/dev/null || echo "")
+HTTP_CODE=$(curl -k -s -o /dev/null -w "%{http_code}" --max-time "$TIMEOUT" "${ALB_URL}${ENDPOINT}" 2>/dev/null || echo "000")
 echo "  ${ENDPOINT} -> HTTP ${HTTP_CODE}"
 
 if [ "$HTTP_CODE" = "200" ] && echo "$RESPONSE" | grep -qi "<!doctype\|<html\|__next\|_next"; then
@@ -97,7 +97,7 @@ echo "--- Test 4: Web_Server optimizer endpoint ---"
 ENDPOINT="/widgets/lineup/api/optimizer/optimize-lineup"
 TEST_PAYLOAD='{"lineup":[],"settings":{}}'
 
-HTTP_CODE=$(curl -s -o /tmp/va_optimizer.json -w "%{http_code}" \
+HTTP_CODE=$(curl -k -s -o /tmp/va_optimizer.json -w "%{http_code}" \
   --max-time "$TIMEOUT" \
   -X POST \
   -H "Content-Type: application/json" \
