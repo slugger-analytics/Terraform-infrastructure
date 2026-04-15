@@ -101,10 +101,9 @@ resource "aws_lambda_function" "web" {
   timeout       = var.web_timeout
   architectures = ["arm64"]
 
-  vpc_config {
-    subnet_ids         = data.aws_subnets.private.ids
-    security_group_ids = [data.aws_security_group.ecs_tasks.id]
-  }
+  # No VPC config — the web Lambda only calls the API through the public ALB
+  # URL (INTERNAL_API_URL) and does not access the database directly. Keeping
+  # it outside the VPC gives it normal internet access for SSR fetch calls.
 
   environment {
     variables = {
