@@ -99,7 +99,7 @@ resource "aws_lambda_function" "web" {
   image_uri     = "${aws_ecr_repository.web.repository_url}:latest"
   memory_size   = var.web_memory
   timeout       = var.web_timeout
-  architectures = ["arm64"]
+  architectures = ["x86_64"]
 
   # No VPC config — the web Lambda only calls the API through the public ALB
   # URL (INTERNAL_API_URL) and does not access the database directly. Keeping
@@ -127,7 +127,7 @@ resource "aws_lambda_function" "api" {
   image_uri     = "${aws_ecr_repository.api.repository_url}:latest"
   memory_size   = var.api_memory
   timeout       = var.api_timeout
-  architectures = ["arm64"]
+  architectures = ["x86_64"]
 
   vpc_config {
     subnet_ids         = data.aws_subnets.private.ids
@@ -158,7 +158,7 @@ resource "aws_lambda_function" "sync" {
   image_uri     = "${aws_ecr_repository.api.repository_url}:latest"
   memory_size   = var.sync_memory
   timeout       = var.sync_timeout
-  architectures = ["arm64"]
+  architectures = ["x86_64"]
 
   image_config {
     command = ["node", "dist/jobs/syncPipeline.js"]
