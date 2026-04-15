@@ -111,8 +111,8 @@ resource "aws_lambda_function" "web" {
       # Runtime vars used by Next.js server-side rendering.
       # NEXT_PUBLIC_* client-bundle values are baked in at Docker build time.
       NEXT_PUBLIC_BASE_PATH = "/widgets/player-portal"
-      NEXT_PUBLIC_API_URL   = "https://alpb-analytics.com/widgets/player-portal/api"
-      INTERNAL_API_URL      = "https://alpb-analytics.com/widgets/player-portal/api"
+      NEXT_PUBLIC_API_URL   = "https://www.alpb-analytics.com/widgets/player-portal/api"
+      INTERNAL_API_URL      = "https://www.alpb-analytics.com/widgets/player-portal/api"
       BASE_PATH             = "/widgets/player-portal"
       SYNC_INTERNAL_KEY     = var.sync_internal_key
     }
