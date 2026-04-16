@@ -321,7 +321,7 @@ resource "aws_lb_listener_rule" "web_app_https" {
 
   condition {
     path_pattern {
-      values = ["/widgets/lineup/*"]
+      values = ["/widgets/lineup", "/widgets/lineup/*"]
     }
   }
 
@@ -345,7 +345,7 @@ resource "aws_lb_listener_rule" "web_app_http" {
 
   condition {
     path_pattern {
-      values = ["/widgets/lineup/*"]
+      values = ["/widgets/lineup", "/widgets/lineup/*"]
     }
   }
 
