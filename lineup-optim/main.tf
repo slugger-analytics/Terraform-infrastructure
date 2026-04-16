@@ -132,7 +132,10 @@ resource "aws_lambda_function" "web_app" {
       NEXT_PUBLIC_SUPABASE_URL      = var.supabase_url
       NEXT_PUBLIC_SUPABASE_ANON_KEY = var.supabase_anon_key
       NEXT_PUBLIC_BACKEND_URL       = "/widgets/lineup/api/optimizer"
-      BASE_PATH                     = "/widgets/lineup"
+      NEXT_PUBLIC_BASE_PATH         = "/widgets/lineup"
+      NEXT_PUBLIC_SITE_URL          = "https://www.alpb-analytics.com"
+      SPORTS_RADAR_API_KEY          = var.sports_radar_api_key
+      POINTSTREAK_API_KEY           = var.pointstreak_api_key
     }
   }
 
