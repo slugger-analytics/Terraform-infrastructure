@@ -21,13 +21,18 @@ variable "environment" {
 variable "memory_size" {
   description = "Lambda function memory size in MB"
   type        = number
-  default     = 512
+  # 2048 MB matches the live function. The teams/range handler holds tens of thousands of
+  # pitch records plus the transformed team payload in the V8 heap; 512 MB OOM'd on 30-day+
+  # ranges, and on Lambda memory also scales CPU (~4x here), which speeds the transform.
+  default     = 2048
 }
 
 variable "timeout" {
   description = "Lambda function timeout in seconds"
   type        = number
-  default     = 30
+  # 120 s matches the live function and stays under the slugger-alb 300 s idle timeout.
+  # 30 s timed out on multi-week ranges that page through many thousands of pitches.
+  default     = 120
 }
 
 variable "log_retention_days" {
