@@ -30,9 +30,10 @@ variable "memory_size" {
 variable "timeout" {
   description = "Lambda function timeout in seconds"
   type        = number
-  # 120 s matches the live function and stays under the slugger-alb 300 s idle timeout.
-  # 30 s timed out on multi-week ranges that page through many thousands of pitches.
-  default     = 120
+  # 240 s matches the live function (raised by the flashcard deploy workflow) and stays
+  # under the slugger-alb 300 s idle timeout. Full-season /api/teams/range fetches run
+  # ~90-110 s today and grow with the season; 120 s left no headroom.
+  default     = 240
 }
 
 variable "log_retention_days" {
