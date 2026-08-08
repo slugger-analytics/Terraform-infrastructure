@@ -42,13 +42,13 @@ variable "web_app_timeout" {
 variable "web_server_memory" {
   description = "Lambda memory size in MB for the Web_Server (FastAPI)"
   type        = number
-  default     = 1024
+  default     = 3008
 }
 
 variable "web_server_timeout" {
   description = "Lambda timeout in seconds for the Web_Server"
   type        = number
-  default     = 30
+  default     = 60
 }
 
 # ECR Repository Names
